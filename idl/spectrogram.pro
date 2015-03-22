@@ -23,13 +23,18 @@
 ;
 ;                      Norm = N^2/(total(w^2) * fs)
 ;
+;    x is assumed to be uniformly sampled, i.e. x[i] corresponds to x
+;    sampled at t = i/fs for i = 0,1,...,N.  If the x you want to pass
+;    in has data gaps, create a new x, xu, with missing data at 
+;    sample times specified by '!VALUES.F_NAN'
+;
 ; Example: 
 ;
-; IDL> t = dindgen(1000)/4.0d ;4hz sampling rate
+;  IDL> t = dindgen(1000)/4.0d ;4hz sampling rate
 ;  IDL> x = sin(2*!pi*t*1.25)
 ;  IDL> s = spectrogram(x, hanning(256), fs=4.0)                             
-; IDL> help, s
-; ** Structure <9bf538>, 6 tags, length=80816, data length=80816, refs=1:
+;  IDL> help, s
+;   ** Structure <9bf538>, 6 tags, length=80816, data length=80816, refs=1:
 ;   PSD             DOUBLE    Array[77, 129]
 ;   FREQ            DOUBLE    Array[129]
 ;   TIME            FLOAT     Array[77]
@@ -37,7 +42,7 @@
 ;   NOVERLAP        LONG               128
 ;   FS              FLOAT           4.00000
 ;  IDL> psd1 = s.psd[0,*] ;get psd estimate at one time
-; IDL> df = s.fs/s.n
+;  IDL> df = s.fs/s.n
 ;  IDL> print, total(psd1)*df ;estimate total power in x at this time
 ;        0.50000000  ;units of [x]^2
 ;  IDL> contour, s.psd, s.time, s.freq, levels=[0.5*max(s.psd),max(s.psd)]
@@ -58,7 +63,7 @@
 ;     Noverlap:  Double Nw/2
 ;     Fs: Double  Sampling Frequency
 ;
-;  References:
+; References:
 ;    Numerical Recipes in C, 13.4 Power Spectrum Estimation
 ;    http://holometer.fnal.gov/GH_FFT.pdf
 ;    http://www.exelisvis.com/docs/FFT.html
