@@ -1,3 +1,55 @@
+;+
+; procedure: barrel_spectrogram
+;
+; Purpose:
+;    Create power spectral density spectrograms for timeseries 
+;    defined in tplot and load spectrogram into tplot.  
+;
+;    DC Offset is removed by subtracting off smoothed average of 
+;    timeseries using savitsky-golay filter
+;
+; Example: 
+;
+;  IDL> timespan, '2014-01-08', 1, /day
+;  IDL> barrel_load_data, probe='2W', datatype='MAG', version='v04'
+;  IDL> tplot_names
+;  % Compiled module: TPLOT_NAMES.
+;     1 brl2W_MAGN_Quality 
+;     2 brl2W_MAG_X        
+;     3 brl2W_MAG_Y        
+;     4 brl2W_MAG_Z        
+;     5 brl2W_MAG_BTotal   
+;  IDL> barrel_spectrogram, [4,5], fs=4 
+;  IDL> tplot_names
+;  IDL> tplot_names
+;     1 brl2W_MAGN_Quality   
+;     2 brl2W_MAG_X          
+;     3 brl2W_MAG_Y          
+;     4 brl2W_MAG_Z          
+;     5 brl2W_MAG_BTotal     
+;     6 brl2W_MAG_Z_PSD      
+;     7 brl2W_MAG_BTotal_PSD 
+;  IDL> tplot, [5,7] 
+;
+; Inputs:
+;    VARNAME: String, Integer, or Array of strings or integers
+;      specifying tplot variables
+
+;  Keywords:
+;    FS:  Double  Sampling frequency.   
+;
+; Outputs:
+;    NONE:   
+;
+; References:
+;    http://themis.ssl.berkeley.edu/software.shtml
+;
+; Author:
+;    Gregory S. Bowers
+;    gsbowers@ucsc.edu
+;    March 21, 2015
+;-  
+
 pro barrel_spectrogram, varname, fs=fs 
 
 if ~keyword_set(fs) then fs = 4.0
