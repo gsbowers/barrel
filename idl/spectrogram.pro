@@ -56,12 +56,12 @@
 ;
 ; Outputs:
 ;    S:   Structure
-;      PSD:  Array[floor((Nx-Noverlap)/(Nw-Noverlap)), nw/2] 
-;      Freq: Array[nw/2]
-;      Time: Array[floor((Nx-Noverlap)/(Nw-Noverlap))]
-;      N: Double Nw/2  
-;     Noverlap:  Double Nw/2
-;     Fs: Double  Sampling Frequency
+;    PSD:  Array[floor((Nx-Noverlap)/(Nw-Noverlap)), nw/2] 
+;    Freq: Array[nw/2]
+;    Time: Array[floor((Nx-Noverlap)/(Nw-Noverlap))]
+;    N: Double Nw/2  
+;    Noverlap:  Double Nw/2
+;    Fs: Double  Sampling Frequency
 ;
 ; References:
 ;    Numerical Recipes in C, 13.4 Power Spectrum Estimation
@@ -69,7 +69,7 @@
 ;    http://www.exelisvis.com/docs/FFT.html
 ;
 ; Author:
-;    Gregory S. Bowers
+;   Gregory S. Bowers
 ;   gsbowers@ucsc.edu
 ;   March 21, 2015
 ;-  
