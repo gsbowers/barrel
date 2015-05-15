@@ -88,7 +88,7 @@ for i = 0, count-1 do begin
 
   ;store power spectral density in tplot
   tname = varname+'_PSD'
-	if keyword_set(detrend) then tname += 'X' 
+  if keyword_set(detrend) then tname += 'X' 
   units = '['+strsplit(dl.ysubtitle, '[]', /extract)+'!E2!N/Hz]'
   store_data, tname, $
     data = {x:t[0]+s.time, y:s.psd, v:s.freq},$
