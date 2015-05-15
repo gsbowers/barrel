@@ -80,7 +80,7 @@ for i = 0, count-1 do begin
   xu(ind) = d.y
 
   ;remove dc component using savgol filter if detrend flag set
-	if keyword_set(detrend) then $
+  if keyword_set(detrend) then $
   xu = xu - convol(xu, savgol(16,16,0,2), /EDGE_TRUNCATE)  
 
   ;take spectrogram of data
