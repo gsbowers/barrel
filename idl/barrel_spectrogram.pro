@@ -5,8 +5,8 @@
 ;    Create power spectral density spectrograms for timeseries 
 ;    defined in tplot and load spectrogram into tplot.  
 ;
-;    DC Offset is removed by subtracting off smoothed average of 
-;    timeseries using savitsky-golay filter
+;    DC Offset can be removed by subtracting off smoothed average of 
+;    timeseries using savitsky-golay filter if detrend flag set
 ;
 ; Example: 
 ;
@@ -19,7 +19,7 @@
 ;     3 brl2W_MAG_Y        
 ;     4 brl2W_MAG_Z        
 ;     5 brl2W_MAG_BTotal   
-;  IDL> barrel_spectrogram, [4,5], fs=4 
+;  IDL> barrel_spectrogram, [4,5], fs=4, /detrend 
 ;  IDL> tplot_names
 ;  IDL> tplot_names
 ;     1 brl2W_MAGN_Quality   
@@ -50,7 +50,7 @@
 ;    March 21, 2015
 ;-  
 
-pro barrel_spectrogram, varname, fs=fs 
+pro barrel_spectrogram, varname, fs=fs, detrend=detrend 
 
 if ~keyword_set(fs) then fs = 4.0
 
@@ -78,7 +78,8 @@ for i = 0, count-1 do begin
   ind = round((t-t[0])*fs)
   xu(ind) = d.y
 
-  ;filter out dc component using savgol
+  ;remove dc component using savgol filter if detrend flag set
+	if keyword_set(detrend) then $
   xu = xu - convol(xu, savgol(16,16,0,2), /EDGE_TRUNCATE)  
 
   ;take spectrogram of data
@@ -86,6 +87,7 @@ for i = 0, count-1 do begin
 
   ;store power spectral density in tplot
   tname = varname+'_PSD'
+	if keyword_set(detrend) then tname += 'X' 
   units = '['+strsplit(dl.ysubtitle, '[]', /extract)+'!E2!N/Hz]'
   store_data, tname, $
     data = {x:t[0]+s.time, y:s.psd, v:s.freq},$
