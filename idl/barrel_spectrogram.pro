@@ -34,9 +34,10 @@
 ; Inputs:
 ;    VARNAME: String, Integer, or Array of strings or integers
 ;      specifying tplot variables
-
-;  Keywords:
+;
+; Keywords:
 ;    FS:  Double  Sampling frequency.   
+;    DETREND:  Set to detrend data using savitsky-golay filter
 ;
 ; Outputs:
 ;    NONE:   
