@@ -109,7 +109,8 @@ while 1 do begin
 					fitrange=[80.,2500.]
 					print, 'calling spectroscopy routine'
 					barrel_spectroscopy, specstruct, date,hours, probe, /slow, $
-						systematic_error_frac=0.1, fitrange=fitrange, numbkg=2
+						systematic_error_frac=0.1, fitrange=fitrange, numbkg=2, $
+						/bkgrenorm
 
 					;calculate ss.moduals/ss.bkgspec and stop fit where 
 					;model is < 5% of background
@@ -119,6 +120,7 @@ while 1 do begin
 					print, string(format='(%"new fitrange=[%g,%g]")', new_fitrange)
 					print, '>>>set "sp_flag" to 1 to redo fit'
 					print, '>>>do ".c" to continue'
+					sp_flag = 0
 
 					stop
 
@@ -130,7 +132,8 @@ while 1 do begin
 							starttimes = specstruct.trange[0], $
 							endtimes = specstruct.trange[1], $
 							startbkgs = reform(specstruct.bkgtrange[0,*]), $
-							endbkgs = reform(specstruct.bkgtrange[1,*])
+							endbkgs = reform(specstruct.bkgtrange[1,*]), $	
+							/bkgrenorm
 
 						sp_flag = 0
 
