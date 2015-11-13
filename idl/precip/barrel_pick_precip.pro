@@ -115,13 +115,7 @@ while 1 do begin
 					;calculate ss.moduals/ss.bkgspec and stop fit where 
 					;model is < 5% of background
 					new_fitrange = barrel_check_sp_fitrange(specstruct,threshold=0.05)
-					print, 'stopped' 
-					print, string(format='(%"old fitrange=[%g,%g]")', fitrange)
-					print, string(format='(%"new fitrange=[%g,%g]")', new_fitrange)
-					print, '>>>set "sp_flag" to 1 to redo fit'
-					print, '>>>do ".c" to continue'
-
-					stop
+					sp_flag = 1					
 
 					while sp_flag do begin 
 						fitrange= new_fitrange
@@ -134,7 +128,14 @@ while 1 do begin
 							endbkgs = reform(specstruct.bkgtrange[1,*]), $
 							/bkg_renorm
 
+						print, 'stopped' 
+						print, string(format='(%"old fitrange=[%g,%g]")', fitrange)
+						print, string(format='(%"new fitrange=[%g,%g]")', new_fitrange)
+						print, '>>>set "sp_flag" to 1 to redo fit'
+						print, '>>>do ".c" to continue'
 						sp_flag = 0
+
+						stop
 
 					endwhile
 
@@ -154,12 +155,19 @@ while 1 do begin
 						specstruct.trange[1]-specstruct.trange[0])
 		
 					print, string(format='(%"Save spectral struct in %s? (\"n\" or any key)")', ss_savname) 
+					print, "f to set flags in precip struct"
 					input = get_kbrd(/escape)
 
 					if input ne 'n' then begin
 						;get precipitation structure
 						barrel_precip, specstruct, precipstruct=precipstruct
 						timespan, trange ;reset trange 
+
+						if input eq 'f' then begin
+							print, 'Stopped.  Help \"specstruct\" and modify flags'
+							print, '.c to continue saving'
+							stop
+						endif
 
 						save, specstruct, filename='./savdat/'+ss_savname	
 						save, precipstruct, filename='./savdat/'+ps_savname	

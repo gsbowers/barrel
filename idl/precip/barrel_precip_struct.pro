@@ -7,7 +7,7 @@ ps = {$
  payload: "", $                        ;payload ID (e.g. 1U)
  trange:  dblarr(2)-1.d,$              ;source time intervals in Unix Epoch
  duration: dblarr(1)-1.d,$             ;duration of precipitation event
- bkgtrange: dblarr(2,2)-1.d, $            ;range of quiet background
+ bkgtrange: dblarr(2,2)-1.d, $         ;range of quiet background
  latitude: -1.d,$                      ;average latitude
  longitude: -1.d,$                     ;average longitude
  altitude: -1.d,$                      ;average altitude
@@ -22,7 +22,11 @@ ps = {$
  conj_lat_kp2: -1.d, $                 ;conjugate latitude 
  conj_lon_kp2: -1.d, $                 ;conjugate longitude
  conj_lat_kp6: -1.d, $                 ;conjugate latitude 
- conj_lon_kp6: -1.d $                  ;conjugate longitude
+ conj_lon_kp6: -1.d, $                 ;conjugate longitude
+ SEP: -1.d, $                          ;SEP related flag
+ Flare: -1.d, $                        ;flare related flag
+ CRB: -1.d, $                          ;cosmic ray burst
+ notes: '' $
 }
 
 return, ps
