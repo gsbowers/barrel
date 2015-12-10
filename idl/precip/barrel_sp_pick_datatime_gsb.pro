@@ -116,7 +116,7 @@ for ns=0,ss.numsrc-1 do begin
   ;Select a subset of the data graphically:
   print,'Click at the left and right of a time range for spectral interval ',ns+1
   ;barrel_selecttimes,hourtimes,lc.y, datause, ndatause, color=3
-  barrel_selecttimes_gsb ,ssrange, payload, color=115
+  barrel_selecttimes_gsb ,ssrange, payload, color=115, linestyle=0
 
   ;Fill in the appropriate part of the structure:
   ss.trange[*,ns] = ssrange
@@ -130,7 +130,7 @@ if ss.bkgmethod eq 1 then begin
     ;Select a subset of the data graphically:
     print,'Click at the left and right of a time range for background interval ',nb+1
     ;barrel_selecttimes,hourtimes,lc.y, datause, ndatause, color=6
-  	barrel_selecttimes_gsb, bkgrange, payload, color=6
+  	barrel_selecttimes_gsb, bkgrange, payload, color=6, linestyle=1
 
     ;Fill in the appropriate part of the structure:
     ss.bkgtrange[*,nb] = bkgrange
